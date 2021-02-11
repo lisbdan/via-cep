@@ -1,0 +1,171 @@
+{
+	"info": {
+		"_postman_id": "b597401d-8a17-4b59-a187-c6d24110f88b",
+		"name": "Via CEP",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "ConsultaCep",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"exec": [
+							"function cep (){\r",
+							"\r",
+							"    var cep = [\"04325000\", \"04326080\", \"13214532\"];\r",
+							"\r",
+							"    var randomItem = cep[Math.floor(Math.random()*cep.length)];\r",
+							"\r",
+							"    return randomItem;\r",
+							"}\r",
+							"\r",
+							"pm.environment.set(\"cep\", cep());"
+						],
+						"type": "text/javascript"
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"cep\": {{cep}}\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{url}}/{{cep}}/json/",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"{{cep}}",
+						"json",
+						""
+					],
+					"query": [
+						{
+							"key": "bairro",
+							"value": "Sáo Paulo",
+							"disabled": true
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "ConsultaEndereco",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"exec": [
+							"function UF (){\r",
+							"\r",
+							"    var UF = [\"SP\"];\r",
+							"\r",
+							"    var randomItem = UF[Math.floor(Math.random()*UF.length)];\r",
+							"\r",
+							"    return randomItem;\r",
+							"}\r",
+							"\r",
+							"pm.environment.set(\"UF\", UF());\r",
+							"\r",
+							"function Cidade (){\r",
+							"\r",
+							"    var Cidade = [\"São Paulo\", \"Jundiaí\", \"Campinas\"];\r",
+							"\r",
+							"    var randomItem = Cidade[Math.floor(Math.random()*Cidade.length)];\r",
+							"\r",
+							"    return randomItem;\r",
+							"}\r",
+							"\r",
+							"pm.environment.set(\"Cidade\", Cidade());\r",
+							"\r",
+							"function Logradouro (){\r",
+							"\r",
+							"    var Logradouro = [\"Brasil\", \"Jabaquara\", \"Fonte\"];\r",
+							"\r",
+							"    var randomItem = Logradouro[Math.floor(Math.random()*Logradouro.length)];\r",
+							"\r",
+							"    return randomItem;\r",
+							"}\r",
+							"\r",
+							"pm.environment.set(\"Logradouro\", Logradouro());"
+						],
+						"type": "text/javascript"
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"UF\": {{UF}},\r\n    \"Cidade\": {{Cidade}},\r\n    \"Logradouro\": {{Logradouro}}\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{url}}/{{UF}}/{{Cidade}}/{{Logradouro}}/json/",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"{{UF}}",
+						"{{Cidade}}",
+						"{{Logradouro}}",
+						"json",
+						""
+					],
+					"query": [
+						{
+							"key": "bairro",
+							"value": "Sáo Paulo",
+							"disabled": true
+						}
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
